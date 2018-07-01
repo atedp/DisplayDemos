@@ -33,7 +33,6 @@ import time
 import datetime
 import pywapi
 import string
-from rtstock.stock import Stock
 
 COLORED = 1
 UNCOLORED = 0
@@ -54,11 +53,6 @@ def main():
     weather = noaa_result['weather']
     obv_time = noaa_result['observation_time_rfc822']
 
-    # Stock stuff
-    stock = Stock('FIT')
-    price = stock.get_latest_price()
-    print_price = '$FIT: ' + price
-
     # clear the frame buffer
     frame_black = [0xFF] * (epd.width * epd.height / 8)
     frame_red = [0xFF] * (epd.width * epd.height / 8)
@@ -66,7 +60,7 @@ def main():
     # For simplicity, the arguments are explicit numerical coordinates  
     epd.draw_filled_rectangle(frame_red, 1, 1, 102, 20, COLORED);
     #epd.draw_rectangle(frame_black, 1, 21, 102, 50, COLORED);
-    epd.draw_filled_rectangle(frame_red, 1, 150, 102, 220, COLORED);
+    epd.draw_rectangle(frame_red, 1, 150, 102, 220, COLORED);
     # Day of Week
     epd.draw_string_at(frame_black, 2, 22, datetime.date.today().strftime("%A"), font, COLORED)
     # Day of Month
@@ -84,7 +78,7 @@ def main():
     epd.draw_string_at(frame_black, 2, 130, weather, font, COLORED)
     #epd.draw_string_at(frame_red, 2, 150, obv_time, font, COLORED)
     #epd.draw_string_at(frame_red, 2, 170, temp, font, COLORED)
-    epd.draw_string_at(frame_black, 2, 170, print_price, COLORED)
+    
 
 
 
