@@ -45,11 +45,11 @@ def main():
 
     # weather stuff
     noaa_result = pywapi.get_weather_from_noaa('KBOS')
-    temp = noaa_result['temp_c'] + " Degrees C"
-    pressure = noaa_result['pressure_in'] + " \" Hg"
-    wind_mph = noaa_result['wind_mph'] + ' MPH '
+    temp = noaa_result['temp_f'] + " Degrees F"
+    pressure = noaa_result['pressure_in'] + "inHg"
+    wind_mph = noaa_result['wind_mph'] + ' mph'
     wind_dir = noaa_result['wind_dir']
-    wind = wind_mph + wind_dir
+    #wind = wind_mph + wind_dir
     weather = noaa_result['weather']
     obv_time = noaa_result['observation_time_rfc822']
 
@@ -61,7 +61,8 @@ def main():
 
     # For simplicity, the arguments are explicit numerical coordinates  
     epd.draw_filled_rectangle(frame_red, 1, 1, 102, 20, COLORED);
-    epd.draw_rectangle(frame_black, 1, 21, 102, 50, COLORED);
+    #epd.draw_rectangle(frame_black, 1, 21, 102, 50, COLORED);
+    epd.draw_filled_rectangle(frame_red, 1, 150, 102, 220, COLORED);
     # Day of Week
     epd.draw_string_at(frame_black, 2, 22, datetime.date.today().strftime("%A"), font, COLORED)
     # Day of Month
@@ -73,8 +74,8 @@ def main():
 
     # Display Weather Stuff
     epd.draw_string_at(frame_black, 2, 50, temp, font, COLORED)
-    #epd.draw_string_at(frame_black, 2, 70, wind_mph, font, COLORED)
-    epd.draw_string_at(frame_black, 2, 90, wind, font, COLORED)
+    epd.draw_string_at(frame_black, 2, 70, wind_mph, font, COLORED)
+    epd.draw_string_at(frame_black, 30, 90, wind_dir, font, COLORED)
     epd.draw_string_at(frame_black, 2, 110, pressure, font, COLORED)
     epd.draw_string_at(frame_black, 2, 130, weather, font, COLORED)
     #epd.draw_string_at(frame_red, 2, 150, obv_time, font, COLORED)
@@ -106,6 +107,11 @@ def main():
     """
     frame_black = epd.get_frame_buffer(Image.open('black.bmp'))
     frame_red = epd.get_frame_buffer(Image.open('red.bmp'))
+    epd.display_frame(frame_black, frame_red)
+    """
+    # My Image Tests
+    """
+    frame_black = epd.get_frame_buffer(Image.open('Sail_Boat.c'))
     epd.display_frame(frame_black, frame_red)
     """
 
